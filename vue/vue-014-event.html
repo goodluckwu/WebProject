@@ -11,13 +11,23 @@
 <div id="basic-event">
     <button @click="counter += 1">Add 1</button>
     <p>The button above has been clicked {{ counter }} times.</p>
+    <button @click="greet">Greet</button>
 </div>
 </body>
 <script>
     const app = Vue.createApp({
         data(){
             return {
-                counter: 0
+                counter: 0,
+                name: "Vue.js"
+            }
+        },
+        methods: {
+            greet(event){
+                alert("Hello " + this.name + "!");
+                if(event){
+                    alert(event.target.tagName)
+                }
             }
         }
     }).mount("#basic-event")
