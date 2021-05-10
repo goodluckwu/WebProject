@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://unpkg.com/vue@next"></script>
+    <script src="https://unpkg.com/lodash@4.17.20/lodash.min.js"></script>
+</head>
+<body>
+<div id="counter">
+    Counter: {{ counter }}
+    <button-template></button-template>
+</div>
+</body>
+<script>
+    const CounterApp = {
+        data() {
+            return {
+                counter: 0
+            }
+        }
+    }
+    const app = Vue.createApp(CounterApp);
+    app.component("button-template", {
+        created() {
+            // 用 Lodash 的防抖函数
+            this.debouncedClick = _.debounce(this.click, 500)
+        },
+        unmounted() {
+            // 移除组件时，取消定时器
+            this.debouncedClick.cancel()
+        },
+        methods: {
+            click() {
+                alert("you click me!!!")
+            }
+        },
+        template: `
+          <button @click="debouncedClick">
+          Save
+          </button>
+        `
+    });
+    app.mount("#counter");
+</script>
+</html>

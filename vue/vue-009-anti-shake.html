@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://unpkg.com/vue@next"></script>
+    <script src="https://unpkg.com/lodash@4.17.20/lodash.min.js"></script>
+</head>
+<body>
+<div id="counter">
+    Counter: {{ counter }}
+    <button @click="click">Up vote</button>
+</div>
+</body>
+<script>
+    const CounterApp = {
+        data() {
+            return {
+                counter: 0
+            }
+        },
+        methods: {
+            // 用 Lodash 的防抖函数
+            click: _.debounce(function() {
+                this.counter++;
+            }, 500)
+        }
+    }
+    Vue.createApp(CounterApp).mount("#counter");
+</script>
+</html>

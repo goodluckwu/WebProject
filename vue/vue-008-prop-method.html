@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://unpkg.com/vue@next"></script>
+</head>
+<body>
+<div id="counter">
+    Counter: {{ counter }}
+    <button @click="increment">Up vote</button>
+</div>
+</body>
+<script>
+    const VoteApp = {
+        data(){
+            return {
+                counter : 0
+            }
+        },
+        methods: {
+            increment(){
+                this.counter++;
+            }
+        }
+    };
+
+    Vue.createApp(VoteApp).mount("#counter");
+</script>
+</html>
