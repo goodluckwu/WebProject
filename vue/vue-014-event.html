@@ -12,6 +12,9 @@
     <button @click="counter += 1">Add 1</button>
     <p>The button above has been clicked {{ counter }} times.</p>
     <button @click="greet">Greet</button>
+    <button @click="say('hi')">say hi</button>
+    <button @click="warn('Form cannot be submitted yet.', $event)">Submit</button>
+    <button @click="one($event), two($event)">two event</button>
 </div>
 </body>
 <script>
@@ -26,8 +29,23 @@
             greet(event){
                 alert("Hello " + this.name + "!");
                 if(event){
-                    alert(event.target.tagName)
+                    alert(event.target.tagName);
                 }
+            },
+            say(message){
+                alert(message);
+            },
+            warn(message, event){
+                if(event){
+                    event.preventDefault();
+                }
+                alert(message);
+            },
+            one(event){
+                alert("one");
+            },
+            two(event){
+                alert("two");
             }
         }
     }).mount("#basic-event")

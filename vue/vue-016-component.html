@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://unpkg.com/vue@next"></script>
+    <script src="https://unpkg.com/lodash@4.17.20/lodash.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios@0.12.0/dist/axios.min.js"></script>
+</head>
+<body>
+
+<div id="app">
+    <blog-post title="My journey with Vue"></blog-post>
+    <blog-post title="Blogging with Vue"></blog-post>
+    <blog-post title="Why Vue is so fun"></blog-post>
+</div>
+</body>
+<script>
+    const app = Vue.createApp({});
+
+    app.component("blog-post", {
+        props: ["title"],
+        template: `<h4>{{ title }}</h4>`
+    });
+
+    app.mount("#app")
+</script>
+</html>

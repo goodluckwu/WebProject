@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://unpkg.com/vue@next"></script>
+    <script src="https://unpkg.com/lodash@4.17.20/lodash.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios@0.12.0/dist/axios.min.js"></script>
+</head>
+<body>
+<div id="v-model-basic">
+    <input v-model="message" placeholder="edit me">
+    <p>Message is: {{ message }}</p>
+
+    <span>Multiline text is:</span>
+    <p style="white-space: pre-line;">{{ text }}</p>
+    <br />
+    <textarea v-model="text" placeholder="add multiple lines"></textarea>
+    <br />
+    <input type="checkbox" id="checkbox" v-model="checked">
+    <label for="checkbox">{{ checked }}</label>
+    <br />
+    <input type="checkbox" id="jack" value="jack" v-model="checkedNames">
+    <label for="jack">Jack</label>
+    <input type="checkbox" id="john" value="john" v-model="checkedNames">
+    <label for="john">john</label>
+    <input type="checkbox" id="mike" value="mike" v-model="checkedNames">
+    <label for="mike">mike</label>
+    <br />
+    <span>Checked Names: {{ checkedNames }}</span>
+    <br />
+    <input type="radio" id="one" value="One" v-model="picked">
+    <label for="one">One</label>
+    <br />
+    <input type="radio" id="two" value="Two" v-model="picked">
+    <label for="two">Two</label>
+    <br />
+    <span>Picked: {{ picked }}</span>
+    <br />
+    <select v-model="selected">
+        <option disabled value="">Please select one</option>
+        <option>A</option>
+        <option>B</option>
+        <option>C</option>
+    </select>
+    <span>Selected: {{ selected }}</span>
+    <br />
+    <select v-model="selected2" multiple>
+        <option>A</option>
+        <option>B</option>
+        <option>C</option>
+    </select>
+    <span>Selected: {{ selected2 }}</span>
+    <br />
+    <select v-model="selected3">
+        <option v-for="option of options" :value="option.value">
+            {{ option.text }}
+        </option>
+    </select>
+    <span>Selected: {{ selected3 }}</span>
+</div>
+</body>
+<script>
+    const app = Vue.createApp({
+        data(){
+            return {
+                message: "",
+                text: "",
+                checked: false,
+                checkedNames: [],
+                picked: "",
+                selected: "",
+                selected2: "",
+                selected3: "A",
+                options: [
+                    {text: "One", value: "A"},
+                    {text: "Two", value: "B"},
+                    {text: "Three", value: "C"}
+                ]
+            }
+        }
+    }).mount("#v-model-basic")
+</script>
+</html>

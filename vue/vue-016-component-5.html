@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://unpkg.com/vue@next"></script>
+    <script src="https://unpkg.com/lodash@4.17.20/lodash.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios@0.12.0/dist/axios.min.js"></script>
+</head>
+<body>
+
+<div id="app">
+    <div :style="{ fontSize: postFontSize + 'em'}">
+        <blog-post v-for="post of posts" :key="post.id" :title="post.title" @enlarge-text="enlarge" >
+        </blog-post>
+    </div>
+</div>
+</body>
+<script>
+    const app = Vue.createApp({
+        data(){
+            return {
+                posts: [
+                    {id:1 , title: "My journey with Vue"},
+                    {id:2 , title: "Blogging with Vue"},
+                    {id:3 , title: "Why Vue is so fun"}
+                ],
+                postFontSize: 1
+            }
+        },
+        methods: {
+            enlarge(enlargeAmount){
+                this.postFontSize += enlargeAmount;
+            }
+        }
+    });
+
+    app.component("blog-post", {
+        props: ["title"],
+        emits: ['enlargeText'],
+        template: `<div>
+        <h4>{{ title }}</h4>
+        <button @click="$emit('enlargeText', 0.1)">Enlarge text</button>
+        </div>`
+    });
+
+    app.mount("#app");
+
+</script>
+</html>
