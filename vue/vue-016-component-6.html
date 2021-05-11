@@ -6,38 +6,47 @@
     <script src="https://unpkg.com/vue@next"></script>
     <script src="https://unpkg.com/lodash@4.17.20/lodash.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios@0.12.0/dist/axios.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
+<div id="dynamic-component-demo" class="demo">
+    <button
+            v-for="tab in tabs"
+            v-bind:key="tab"
+            v-bind:class="['tab-button', { active: currentTab === tab }]"
+            v-on:click="currentTab = tab"
+    >
+        {{ tab }}
+    </button>
+
+    <component v-bind:is="currentTabComponent" class="tab"></component>
+</div>
 </body>
 <script>
     const app = Vue.createApp({
-        data(){
+        data() {
             return {
-                posts: [
-                    {id:1 , title: "My journey with Vue"},
-                    {id:2 , title: "Blogging with Vue"},
-                    {id:3 , title: "Why Vue is so fun"}
-                ],
-                postFontSize: 1
+                currentTab: 'Home',
+                tabs: ['Home', 'Posts', 'Archive']
             }
         },
-        methods: {
-            enlarge(enlargeAmount){
-                this.postFontSize += enlargeAmount;
+        computed: {
+            currentTabComponent() {
+                return 'tab-' + this.currentTab.toLowerCase()
             }
         }
-    });
+    })
 
-    app.component("blog-post", {
-        props: ["title"],
-        emits: ['enlargeText'],
-        template: `<div>
-        <h4>{{ title }}</h4>
-        <button @click="$emit('enlargeText', 0.1)">Enlarge text</button>
-        </div>`
-    });
+    app.component('tab-home', {
+        template: `<div class="demo-tab">Home component</div>`
+    })
+    app.component('tab-posts', {
+        template: `<div class="demo-tab">Posts component</div>`
+    })
+    app.component('tab-archive', {
+        template: `<div class="demo-tab">Archive component</div>`
+    })
 
-    app.mount("#app");
-
+    app.mount('#dynamic-component-demo')
 </script>
 </html>
